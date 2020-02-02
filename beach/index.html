@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Beach scene</title>
+        <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
+    </head>
+    <body>
+
+        <a-scene background="color: white">
+            <a-assets>
+                <a-asset-item id= "beach" src="beach_sandonly.glb"></a-asset-item>
+                <a-asset-item id= "cube" src="simple_cube_2.glb"></a-asset-item>
+                <a-asset-item id= "cube2" src="simple_cube_sand2.glb"></a-asset-item>
+            </a-assets>
+
+            <!--This glb model looks brighter, and I am not sure why, it may be because of blender, which had a light in the scene?-->
+            <a-entity gltf-model="#beach" position="2 0 0" rotation="90 0 0"></a-entity>
+            <a-entity gltf-model="#cube" position="-2 0 0" rotation="-90 0 0"></a-entity>
+            <a-entity gltf-model="#cube2" position="-4 0 0" rotation="-90 0 0"></a-entity>
+
+        </a-scene>
+    </body>
+</html>
