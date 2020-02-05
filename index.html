@@ -1,12 +1,67 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+        <link rel="stylesheet" href="css/bulma.css">
         <title>
             VR-AR Portfolio
         </title>
     </head>
     <body>
+        <nav class="navbar is-primary" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <div class="navbar-item">
+                    <h1>Michael Pascale</h1>
+                </div>
+
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" data-target="showcase">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                  </a>
+            </div>
+            <div  id = "showcase" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            DEMOS
+                        </a>
+                        <div class="navbar-dropdown is-right">
+                            <a class="navbar-item" id="pokemon-demo">
+                                Pokemon
+                            </a>
+                            <a class="navbar-item" id="model-demo">
+                                Model Loading
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
         <h1 class="container">This is the splash page for my Portfolio</h1>
+        <script src="js/jquery.js"></script>
+        <script>
+            $(document).ready(function() {
+
+                // Check for click events on the navbar burger icon
+                $(".navbar-burger").click(function() {
+
+                    // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                    $(".navbar-burger").toggleClass("is-active");
+                    $(".navbar-menu").toggleClass("is-active");
+
+                });
+
+                $('#pokemon-demo').on('click', function(){
+                    window.location.href = '/pokemon';
+                });
+
+                $('#model-demo').on('click', function(){
+                    window.location.href = '/model loading';
+                });
+
+            });
+            
+        </script>
+
     </body>
 </html>
