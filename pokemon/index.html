@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Hello World</title>
+        <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
+        <script src="js/aframe-extras.js"></script>
+    </head>
+    <body>
+
+        <a-scene background="color: white">
+            <a-assets>
+                <!-- Assets required for obj to load. Obj file and corresponing mtl to point to image data-->
+                <a-asset-item id = "stage" src="stadium/Super Training Stage.obj"></a-asset-item>
+                <a-asset-item id = "stage_mtl" src="stadium/Super Training Stage.mtl"></a-asset-item>
+                <a-asset-item id = "masterball" src="pokeball/masterball4.glb"></a-asset-item>
+            </a-assets>
+
+            <a-entity obj-model="obj: #stage; mtl: #stage_mtl" scale = "2 2 2"
+            position=" -4 0 -8"></a-entity>
+
+            <!--In order to get a object to load with the correct lighting, I have found the following to work.
+                Export it as an fbx within blender, then load into paint 3d before saving as a glb-->
+            <a-sphere position = "0.5 1.45 -3" rotation = "90 0 0" scale = "0.1 0.1 0.1"
+            animation__rotate="property: rotation; from: 90 0 0; to: 90 360 0; dur: 1500; loop: true; easing: linear;">
+                <a-entity gltf-model="#masterball" position = '1.35 -1.55 -3.97' scale = '10 10 10'></a-entity>
+            </a-sphere>
+
+        </a-scene>
+    </body>
+</html>
