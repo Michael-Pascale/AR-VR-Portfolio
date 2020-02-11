@@ -6,6 +6,7 @@
         <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
         <script src="js/aframe-ar.js"></script>
         <script src="js/jquery.js"></script>
+        <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
     </head>
     <body style="margin: 0px; overflow: hidden;">
 
@@ -30,6 +31,29 @@
 					});
     			}
     		});
+
+    		function wow(){
+    			console.log('w0w')
+    		}
+
+    		AFRAME.registerComponent('leaveonclick',{
+    			schema:{
+    				link: {type: "string", default: "http://www.google.com"},
+    				the_target: {type: "string", default: "#logo"},
+    				marker: {type: "string", default: "#cursormarker"}
+    			},
+    			init: function(){
+    				let the_marker = document.querySelector("#animated-marker");
+					the_marker.addEventListener('click', function (ev) {
+						console.log('something is being clicked')
+						if(ev.target.id == this.data.the_target){
+							console.log('clicked');
+							window.location.href = this.data.link
+						}
+						
+					});
+    			}
+    		});
     	</script>
         <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
 
@@ -45,9 +69,9 @@
                        material="src:#grid; color: red; transparent: true; opacity: 0.50;">
                 </a-box>
             </a-marker>
-            <a-marker type="pattern" url="data/lambda.patt" emitevents="true" startanimationonmarker>
-            	<a-plane position="0 0.5 0" id="marker-object-1" rotation = "-90 0 0"
-                       material="src:#linkedin"
+            <a-marker type="pattern" url="data/lambda.patt" emitevents="true" startanimationonmarker cursor="rayOrigin:mouse" leaveonclick id="cursormarker">
+            	<a-plane position="0 0.5 0" id="marker-object-1" rotation = "-90 0 0" onclick=wow
+                       material="src:#linkedin"  id="logo"
                        animation__comeout="property:position; from: 0 0.125 0; to: 0.5 0.125 0; dur: 1000; startEvents:start-anim;">
                 </a-box>
             </a-marker>
