@@ -14,28 +14,35 @@
     		AFRAME.registerComponent('startanimationonmarker', {
     			schema:{
     				event: {type: "string", default: 'start-anim'},
-    				theanimation: {type: "string", default: '#marker-object-1'}
+    				theanimation: {type: "string", default: '#marker-object-1'},
+					useclass: {type: "string", default: "false"}
     			},
     			init: function(){
     				var marker = this.el;
     				let the_event = this.data.event
     				let the_object = this.data.theanimation
+					let useClass = this.data.useclass
+					if(useClass == "true"){
+						let the_objects = document.querySelectorAll(the_object)
+						marker.addEventListener('markerFound', function(){
+							for(let i = 0; i < the_objects.length; i++){
+								the_objects[i].emit(the_event)
+							}
+						})
+					}else{
+						//This is how you add event listeners to the marker
+						marker.addEventListener('markerFound', function() {
+							var markerId = marker.id;
+							console.log('markerFound', markerId);
 
-    				//This is how you add event listeners to the marker
-					marker.addEventListener('markerFound', function() {
-						var markerId = marker.id;
-						console.log('markerFound', markerId);
-
-						//This is how you can trigger startEvens
-						document.querySelector(the_object).emit(the_event)
-					});
+							//This is how you can trigger startEvens
+							document.querySelector(the_object).emit(the_event)
+						});
+					}
     			}
     		});
 
-    		function wow(){
-    			console.log('w0w')
-    		}
-
+			//This will need to be refactored
     		AFRAME.registerComponent('leaveonclick',{
     			schema:{
     				link: {type: "string", default: "http://www.google.com"},
@@ -61,19 +68,22 @@
                 <img id="grid" src="images/border.png" />
                 <img id="earth-flat" src="images/earth-flat.jpg" />
                 <img id="earth-sphere" src="images/earth-sphere.jpg" />
-                <img id="linkedin" src="images/linkedin.png">
+				<img id="linkedin" src="images/logo_linkedin.png">
+				<img id="twitter" src="images/Twitter_Logo_WhiteOnBlue.png">
             </a-assets>
             
-            <a-marker type="pattern" url="data/kanji.patt">
-                <a-box position="0 0.5 0" 
-                       material="src:#grid; color: red; transparent: true; opacity: 0.50;">
-                </a-box>
-            </a-marker>
-            <a-marker type="pattern" url="data/lambda.patt" emitevents="true" startanimationonmarker cursor="rayOrigin:mouse" leaveonclick id="cursormarker">
-            	<a-plane position="0 0.5 0" id="marker-object-1" rotation = "-90 0 0" onclick=wow
+			<a-marker type="pattern" url="data/lambda.patt" emitevents="true"  startanimationonmarker="theanimation:.alogo;useclass:true;" 
+			cursor="rayOrigin:mouse" id="cursormarker">
+			<a-entity>
+            	<a-plane position="0 -0.1 0" id="marker-object-1" class="alogo" rotation = "-90 0 0" 
                        material="src:#linkedin"  id="logo"
-                       animation__comeout="property:position; from: 0 0.125 0; to: 0.5 0.125 0; dur: 1000; startEvents:start-anim;">
-                </a-box>
+                       animation__comeout="property:position; from: 0 -0.1 0; to: 1.0 -0.1 0; dur: 800; startEvents:start-anim;">
+				</a-plane>
+				<a-plane position="0 0 0" id="marker-object-2" class="alogo" rotation = "-90 0 0" 
+                       material="src:#twitter"  id="logo"
+                       animation__getout="property:position; from: 0 0 0; to: 0 0 1.0; dur: 800; startEvents:start-anim;">
+				</a-plane>
+			</a-entity>
             </a-marker>
             
             <a-entity camera></a-entity>
