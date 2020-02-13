@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="data:;base64,iVBORw0KGgo=">
+        <title>AR DEMO</title>
+        <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
+        <script src="js/aframe-ar.js"></script>
+        <script src="js/jquery.js"></script>
+        <script src="https://rawgit.com/nicolocarpignoli/nicolocarpignoli.github.io/master/ar-click-events/events.js"></script>
+    </head>
+    <body style="margin: 0px; overflow: hidden;">
+
+    	<script>
+    		AFRAME.registerComponent('startanimationonmarker', {
+    			schema:{
+    				event: {type: "string", default: 'start-anim'},
+    				theanimation: {type: "string", default: '#marker-object-1'},
+					useclass: {type: "string", default: "false"}
+    			},
+    			init: function(){
+    				var marker = this.el;
+    				let the_event = this.data.event
+    				let the_object = this.data.theanimation
+					let useClass = this.data.useclass
+					if(useClass == "true"){
+						let the_objects = document.querySelectorAll(the_object)
+						marker.addEventListener('markerFound', function(){
+							for(let i = 0; i < the_objects.length; i++){
+								the_objects[i].emit(the_event)
+							}
+						})
+					}else{
+						//This is how you add event listeners to the marker
+						marker.addEventListener('markerFound', function() {
+							var markerId = marker.id;
+							console.log('markerFound', markerId);
+
+							//This is how you can trigger startEvens
+							document.querySelector(the_object).emit(the_event)
+						});
+					}
+    			}
+    		});
+
+			
+        </script>
+        
+        <!--UI Elements-->
+        <div class="title-overlay" style="position: fixed; top: 10px; text-align: center; margin: 0 auto;">
+            <h1>Happy Valentines Day</h1>
+        </div>
+        <a-scene embedded vr-mode-ui="enabled: false;" arjs="debugUIEnabled: false;">
+
+            <a-assets>
+				<img id="linkedin" src="images/logo_linkedin.png">
+                <img id="twitter" src="images/Twitter_Logo_WhiteOnBlue.png">
+                <a-asset-item id="candy_heart_1" src="models/candy-heart.glb"></a-asset-item>
+                <a-asset-item id="netflix" src="models/netflixtext.glb"></a-asset-item>
+                <a-asset-item id="heart2" src="models/HeartContainer.glb"></a-asset-item>
+                <a-asset-item id="last" src="models/ButNotForYou.glb"></a-asset-item>
+            </a-assets>
+            
+			<a-marker type="pattern" url="data/pattern-Netflix-Logo.patt" emitevents="true"  startanimationonmarker="theanimation:#item1;">
+                <a-entity gltf-model="#netflix" id="item1" scale="0.01 0.01 0.01" rotation="90 0 0" position="0 0.5 0"
+                animation__rotation="property: rotation; from: 90 0 0; to: 90 360 0; dur: 3000; loop: true; easing: linear;"></a-entity>
+            </a-marker>
+            <a-marker type="pattern" url="data/pattern-broken_heart.patt" emitevents="true"  startanimationonmarker="theanimation:#item2;">
+                <a-entity gltf-model="#candy_heart_1" id="item2" scale = "0.1 0.1 0.1" rotation="90 0 0" position="0 0.5 0"
+                animation__rotation="property: rotation; from: 90 0 0; to: 90 360 0; dur: 3000; loop: true; easing: linear;"></a-entity>
+            </a-marker>
+            <a-marker type="pattern" url="data/pattern-pepe.patt" emitevents="true"  startanimationonmarker="theanimation:#item3;">
+                <a-entity gltf-model="#heart2" id="item3"></a-entity>
+            </a-marker>
+            <a-marker type="pattern" url="data/pattern-heart.patt" emitevents="true"  startanimationonmarker="theanimation:#item4;">
+                <a-entity gltf-model="#candy_heart_1" id="item4"></a-entity>
+            </a-marker>
+            
+            <a-entity camera></a-entity>
+            
+        </a-scene>
+    </body>
+<html>
