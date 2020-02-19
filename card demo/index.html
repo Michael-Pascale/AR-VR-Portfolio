@@ -59,20 +59,20 @@
                 <a-asset-item id="heart2" src="models/HeartContainer.glb"></a-asset-item>
                 <a-asset-item id="last" src="models/ButNotForYou.glb"></a-asset-item>
             </a-assets>
-            
-			<a-marker type="pattern" url="data/pattern-Netflix-Logo.patt" emitevents="true"  startanimationonmarker="theanimation:#item1;">
+            <a-marker type="pattern" url="data/pattern-netflixlogo.patt" emitevents="true"  startanimationonmarker="theanimation:#item1;">
                 <a-entity gltf-model="#netflix" id="item1" scale="0.01 0.01 0.01" rotation="90 0 0" position="0 0.5 0"
                 animation__rotation="property: rotation; from: 90 0 0; to: 90 360 0; dur: 3000; loop: true; easing: linear;"></a-entity>
             </a-marker>
             <a-marker type="pattern" url="data/pattern-broken_heart.patt" emitevents="true"  startanimationonmarker="theanimation:#item2;">
                 <a-entity gltf-model="#candy_heart_1" id="item2" scale = "0.1 0.1 0.1" rotation="90 0 0" position="0 0.5 0"
-                animation__rotation="property: rotation; from: 90 0 0; to: 90 360 0; dur: 3000; loop: true; easing: linear;"></a-entity>
+                animation__rotation="property: rotation; from: 90 0 0; to: 90 360 0; dur: 3000; loop: true; easing: linear; startEvents:start-anim;"></a-entity>
             </a-marker>
             <a-marker type="pattern" url="data/pattern-pepe.patt" emitevents="true"  startanimationonmarker="theanimation:#item3;">
-                <a-entity gltf-model="#heart2" id="item3"></a-entity>
+                <a-entity gltf-model="#heart2" id="item3" position="0 0 -1" scale="4 4 4"
+                animation__rotation="property: rotation; from: 0 0 0; to: 0 360 0; dur: 3000; loop: true; easing: linear; startEvents:start-anim;"></a-entity>
             </a-marker>
             <a-marker type="pattern" url="data/pattern-heart.patt" emitevents="true"  startanimationonmarker="theanimation:#item4;">
-                <a-entity gltf-model="#last" id="item4"></a-entity>
+                <a-entity gltf-model="#last" id="item4" scale="0.05 0.05 0.05" position="-2 1 0" rotation="90 0 0"></a-entity>
             </a-marker>
             
             <a-entity camera></a-entity>
