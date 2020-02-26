@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Latitude: <span id='lat'/></h1>
+<h1>Longitude: <span id='long'/></h1>
+<script>
+	let latitude = document.getElementById('lat')
+	let longitude = document.getElementById('long')
+	function showPosition(position){
+		latitude.innerHTML = position.coords.latitude
+		longitude.innerHTML = position.coords.longitude
+	}
+	
+	navigator.geolocation.getCurrentPosition(showPosition)
+</script>
+</body>
+</html>
