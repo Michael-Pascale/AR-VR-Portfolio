@@ -4,6 +4,14 @@
 <h1>Latitude: <span id='lat'/></h1>
 <h1>Longitude: <span id='long'/></h1>
 <script>
+	var options = {
+		enableHighAccuracy: true,
+		timeout: 5000,
+		maximumAge: 0
+	};
+	function error(err) {
+		console.warn(`ERROR(${err.code}): ${err.message}`);
+	}
 	let latitude = document.getElementById('lat')
 	let longitude = document.getElementById('long')
 	function showPosition(position){
@@ -11,7 +19,7 @@
 		longitude.innerHTML = position.coords.longitude
 	}
 	
-	navigator.geolocation.getCurrentPosition(showPosition)
+	navigator.geolocation.getCurrentPosition(showPosition, error,options)
 </script>
 </body>
 </html>
