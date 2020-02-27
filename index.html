@@ -2,6 +2,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="css/bulma.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>
             VR-AR Portfolio
         </title>
@@ -35,6 +36,9 @@
                             <a class="navbar-item" id="ar-demo">
                                 AR Demo
                             </a>
+                            <a class="navbar-item" id="latitude-calc">
+                                Find GPS
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -64,6 +68,10 @@
 
                 $('#ar-demo').on('click', function(){
                     window.location.href += '/ar';
+                });
+
+                $('#latitude-calc').on('click', function(){
+                    window.location.href = 'coordinatecalc.html';
                 });
 
             });
