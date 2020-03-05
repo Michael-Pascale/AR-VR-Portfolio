@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Simple Gaze Demo</title>
+        <meta name="description" content="Kumar Ahir - VR designer">
+        <script src="https://aframe.io/releases/1.0.2/aframe.min.js"></script>
+    </head>
+    <body>
+        
+        <a-scene>
+            <script>
+            
+                AFRAME.registerComponent('cursor-listener', {
+                    init: function () {
+                        this.el.addEventListener('click', function (evt) {
+                            console.log('I was clicked at: ', evt.detail.intersection.point);
+                        });
+                    }
+                });
+    
+                AFRAME.registerComponent('location-marker', {
+                    schema: {
+                        target: {type: 'string'}
+                    },
+                    init: function(){
+                        let self = this
+                        this.el.addEventListener('click', function(evt){
+                            var sk=document.getElementById("skyid");
+                            console.log('I was clicked at: ', evt.detail.intersection.point);
+                            let thetarget = self.data.target;
+                            //set the material of the sky sphere to be what we wants
+                            sk.setAttribute('material',{src:thetarget,shader:"flat"});
+                        })
+                    }
+                })
+            </script>
+            <a-assets>
+                <img id="src5" src="https://cdn.glitch.com/19dba616-2c09-4b5d-9168-e9bb790b4853%2Fpoint1.jpg?1544706553755"/>
+                <img id="src6" src="https://cdn.glitch.com/19dba616-2c09-4b5d-9168-e9bb790b4853%2Fpoint2.jpg?1544706553926"/>
+            </a-assets>
+            <a-box position="-2 0 -4" color="yellow" location-marker="target:#src5;"></a-box>
+            <a-box position="2 0 -4" color="yellow" location-marker="target:#src6;"></a-box>
+            <a-sky id="skyid" material="src:#src5"></a-sky>
+
+            </a-sky>
+
+            <a-plane id="floor" position="0 -2 0" color="red"
+            scale="10 10 1" rotation="-90 0 0" cursor-listener></a-plane>
+            <a-entity id="cam" camera position="0 1.6 0" look-controls wasd-controls>
+                <a-entity id="acursor" cursor position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.02; radiusOuter: 0.03"
+                material="color: black; shader: flat">
+
+                </a-entity>
+            </a-entity>
+        </a-scene>
+        
+    </body>
+</html>
